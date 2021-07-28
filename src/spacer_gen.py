@@ -11,7 +11,7 @@ output_path = './'
 # The script will stop searching early if possible once it reaches this number, 
 # and only output this many at the end, even if more were identified
 # Make this very high to see all matching spacers
-spacers_per_region = 100
+spacers_per_region = 10000
 
 # GC Content Filter - as a min and max percent of GC content allowed
 # Ex. GC_requirement = [40,60] ensures only spacers with GC content of 40% - 60% will be generated
@@ -38,7 +38,7 @@ overlapping_spacers = 'avoid'
 # spacers for, though all files and genbank ids will be checked for 
 # off-target activity and bad ones filtered out
 # Ex. ["CP001509.3"]
-genbank_ids = ["CP001509.3"]
+genbank_ids = []
 # Email: only used for NCBI API calls, be polite!
 email = ''
 
@@ -98,7 +98,7 @@ nonessential_only = True
 # The "genome_id" should exactly match one of the ids, genbank files, or fasta files
 # used in the matching field above
 # Ex. custom_regions_csv = './custom_regions.csv'
-custom_regions_csv = './custom_regions.csv'
+custom_regions_csv = ''
 
 
 # A list of sequences in which to generate spacers

@@ -4,7 +4,7 @@ import subprocess
 import os
 from pathlib import Path
 from simplesam import Reader as samReader
-from src.advanced_parameters import restriction_enzymes, homopolymer_length
+from advanced_parameters import restriction_enzymes, homopolymer_length
 
 def filter_re_sites(candidates):
 	rb = Restriction.RestrictionBatch(restriction_enzymes)

@@ -9,14 +9,14 @@ from Bio.pairwise2 import format_alignment as f_align
 from Bio import SeqIO, SeqRecord, Seq, SeqUtils, pairwise2
 from simplesam import Reader as samReader
 
-from src.genbank import retrieve_annotation
-from src.advanced_parameters import PAM_SEQ, SPACER_LENGTH, flex_base, flex_spacing
+from genbank import retrieve_annotation
+from advanced_parameters import PAM_SEQ, SPACER_LENGTH, flex_base, flex_spacing
 
 S3_BUCKET = 'lab-script-resources'
 
 def make_spacer_gen_output(region, output_filename):
 	fieldnames = ['spacer_id', 'region', 'sequence', 'genomic_coordinate', 'GC_content', 'PAM', 'strand']
-	
+
 	root_dir = Path(__file__).parent.parent
 	temp_path = os.path.join(root_dir, output_filename)
 	#s3 = boto3.client('s3')
@@ -48,7 +48,7 @@ def make_spacer_gen_output(region, output_filename):
 				row = {
 					'spacer_id': f"{spacer_num}",
 					'region': f"{region['name']}",
-					'sequence': c['seqrec'].seq, 
+					'sequence': c['seqrec'].seq,
 					'genomic_coordinate': c['location'],
 					'GC_content': GC_content,
 					'PAM': PAM_SEQ,
@@ -111,7 +111,7 @@ def make_eval_outputs(spacers, output_sams, email, output_path, user_spacers):
 						spacer_name = name
 
 			print(f"Spacer '{spacer_name}' has {len(reads)} potential match(es) - see output files for details")
-			
+
 			with open(os.path.join(output_path, f'{spacer_name}_off_target.txt'), 'w') as text_out:
 				text_out.write(f"Potential off-target sites for {spacer_name}")
 				text_out.write("\n(Closer matches to protospacer listed first)")

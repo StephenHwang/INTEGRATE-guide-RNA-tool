@@ -8,13 +8,13 @@ from Bio.Seq import Seq
 from Bio.SeqRecord import SeqRecord
 from Bio import SeqIO
 
-from src.genbank import retrieve_annotation, get_regions
-from src.finder import get_target_region_for_gene, get_candidates_for_region, remove_offtarget_matches, order_candidates_for_region
-from src.outputs import make_spacer_gen_output, make_eval_outputs
-from src.parse import extract_column_from_csv
-from src.bowtie import find_offtargets, build as bowtie_build
-from src.filters import filter_non_unique_fingerprints, filter_re_sites, filter_homopolymers
-from src.advanced_parameters import SPACER_LENGTH, flex_base, flex_spacing
+from genbank import retrieve_annotation, get_regions
+from finder import get_target_region_for_gene, get_candidates_for_region, remove_offtarget_matches, order_candidates_for_region
+from outputs import make_spacer_gen_output, make_eval_outputs
+from parse import extract_column_from_csv
+from bowtie import find_offtargets, build as bowtie_build
+from filters import filter_non_unique_fingerprints, filter_re_sites, filter_homopolymers
+from advanced_parameters import SPACER_LENGTH, flex_base, flex_spacing
 
 def spacer_gen(args):
 	# unpack the arguments
@@ -153,7 +153,7 @@ def spacer_gen(args):
 				print("Invalid 'coding_spacer_direction' parameter, see the valid inputs")
 				return
 			candidates = order_candidates_for_region(candidates, region, coding_spacer_direction)
-		
+
 		candidates = filter_re_sites(candidates)
 		candidates = filter_homopolymers(candidates)
 		for genome_id in genome_ids:
@@ -180,7 +180,7 @@ def spacer_eval(args):
 	if not email or '@' not in email:
 		print("Please enter an email for NCBI API calls")
 		return
-	
+
 	if type(user_spacers) is dict:
 		spacers = [v for k,v in user_spacers.items() if len(v) == SPACER_LENGTH]
 	else:

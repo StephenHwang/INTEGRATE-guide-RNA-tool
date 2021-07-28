@@ -11,8 +11,8 @@ from Bio import Entrez, SeqIO
 from Bio.SeqRecord import SeqRecord
 from Bio.Seq import Seq
 
-from src.bowtie import build
-from src.advanced_parameters import minimum_intergenic_region_length
+from bowtie import build
+from advanced_parameters import minimum_intergenic_region_length
 
 S3_BUCKET = 'lab-script-resources'
 
@@ -22,7 +22,7 @@ def get_from_cache(genbank_id, return_record=True):
 	os.makedirs(genbank_assets_path, exist_ok=True)
 
 	local_gb = os.path.join(genbank_assets_path, f'{genbank_id}.gb')
-	
+
 	if not Path(local_gb).exists():
 		return False
 	if not return_record:
@@ -87,13 +87,13 @@ def retrieve_annotation(genbank_id, email, return_record=True):
 def get_noncoding_regions_from_genes(genes, genome, nonessential):
 	genome_end = len(genome)
 	noncoding_regions = []
-	
+
 	gene_index = 0
 	prev_gene = {'end': -1, 'direction': 'none'}
 	while gene_index < len(genes):
 		next_gene = genes[gene_index]
 		if (int(next_gene['start']) - int(prev_gene['end'])) > minimum_intergenic_region_length:
-			# add check for essentiality, if it's a parameter only use noncoding regions with 
+			# add check for essentiality, if it's a parameter only use noncoding regions with
 			# C term on each side (aka, prev gene orientation is 'fw' and next gene orientation is 'rv')
 			if not nonessential or (prev_gene['direction'] == 'fw' and next_gene['direction'] == 'rv'):
 				start = int(prev_gene['end'])+1
@@ -121,7 +121,7 @@ def basic_gene_info(gene, genes_metadata=None):
 		locus_tag = gene.qualifiers['locus_tag'][0]
 	except:
 		locus_tag = f'Unknown_Name_{min(genbank_start, genbank_end)}'
-	try: 
+	try:
 		gene_name = gene.qualifiers['gene'][0]
 	except:
 		gene_name = locus_tag

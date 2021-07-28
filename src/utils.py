@@ -8,10 +8,10 @@ from Bio import SeqIO
 from Bio.Seq import Seq
 from Bio.SeqRecord import SeqRecord
 
-from src.filters import filter_homopolymers, filter_re_sites
-from src.bowtie import find_offtargets
-from src.genbank import retrieve_annotation
-from src.advanced_parameters import SPACER_LENGTH, flex_spacing
+from filters import filter_homopolymers, filter_re_sites
+from bowtie import find_offtargets
+from genbank import retrieve_annotation
+from advanced_parameters import SPACER_LENGTH, flex_spacing
 
 barcode_length = 12
 min_hamming_distance = 4
@@ -36,7 +36,7 @@ def remove_offtargets(spacers, genbank_id):
 		SeqIO.write(flex_seqs, targets_file, 'fasta')
 
 	output_location = find_offtargets(genbank_id, fasta_name)
-	
+
 	filtered_spacers = []
 	sam_reads = []
 	with open(output_location, 'r') as sam_file:

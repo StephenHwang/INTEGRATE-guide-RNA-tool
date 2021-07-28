@@ -1,14 +1,17 @@
-from src.main import spacer_gen
+import sys
+sys.path.append('../src')
+
+from main import spacer_gen
 
 # Folder to put outputs in
 # Can be relative or absolute
 # Ex. 'C:\\Users\\Me\\Downloads', '../../Downloads'
 # Note that outputs to the 'spacer_gen_output.csv' will be APPENDED to existing entries
-# in that file, not overridden, in the case of repeat runs. 
+# in that file, not overridden, in the case of repeat runs.
 output_path = './'
 
 # The number of spacers to generate per region
-# The script will stop searching early if possible once it reaches this number, 
+# The script will stop searching early if possible once it reaches this number,
 # and only output this many at the end, even if more were identified
 # Make this very high to see all matching spacers
 spacers_per_region = 100
@@ -35,7 +38,7 @@ overlapping_spacers = 'avoid'
 #
 # Currently the coding and noncoding modes will only use FIRST file
 # of genbank id listed to identify coding and noncoding regions to generate
-# spacers for, though all files and genbank ids will be checked for 
+# spacers for, though all files and genbank ids will be checked for
 # off-target activity and bad ones filtered out
 # Ex. ["CP001509.3"]
 genbank_ids = ["CP001509.3"]
@@ -43,12 +46,12 @@ genbank_ids = ["CP001509.3"]
 email = ''
 
 # Genbank file is a path to a local genbank file
-# Must be a FULL genbank file for coding and noncoding modes, containing both the 
+# Must be a FULL genbank file for coding and noncoding modes, containing both the
 # full genome sequence and the feature definitions
 # Ex. genbank_file = 'C:\Users\Me\Documents\experiments\integrate2010\genome.gb'
 genbank_files = []
 
-# genome_fasta_file is a path to a local fasta file containing the genome for 
+# genome_fasta_file is a path to a local fasta file containing the genome for
 # spacer generation with custom boundaries
 # Ex. genome_fasta_file = 'C:\Users\Me\Documents\experiments\integrate2010\genome.fasta'
 genome_fasta_files = []
@@ -57,7 +60,7 @@ genome_fasta_files = []
 # -------------- REGION TYPES - CODING, NONCODING, OR CUSTOM --------------#
 # region_type must be 'coding', 'noncoding', or 'custom'
 # see the specific additional settings for each below
-region_type = 'coding'
+region_type = 'custom'
 
 # -------------- CODING REGION SETTINGS -----------------------------------#
 # Percent of each region to target, from N terminus to C terminus
@@ -80,14 +83,14 @@ target_locus_tags_csv = './needed_regions.csv'
 # Ex. noncoding_boundary = [13555, 20000]
 noncoding_boundary = [0,20000]
 
-# Restricts regions to sites that are "nonessential": those with the 
+# Restricts regions to sites that are "nonessential": those with the
 # C terminus of a coding region on both ends. Either False or True
 nonessential_only = True
 
 
 # --------------- CUSTOM REGION SETTINGS ----------------------------------#
 # Custom regions should be defined either in the csv file, specifying what
-# regions (by refseq) in the input files should be used, 
+# regions (by refseq) in the input files should be used,
 # OR
 # as custom sequences input in the 'custom_sequences' field
 # Leave the one not used empty
@@ -98,11 +101,11 @@ nonessential_only = True
 # The "genome_id" should exactly match one of the ids, genbank files, or fasta files
 # used in the matching field above
 # Ex. custom_regions_csv = './custom_regions.csv'
-custom_regions_csv = ''
+custom_regions_csv = './custom_regions.csv'
 
 
 # A list of sequences in which to generate spacers
-# NOTE: when using this setting, you might want to turn 'offset' in 'advanced_parameters.py' to False. 
+# NOTE: when using this setting, you might want to turn 'offset' in 'advanced_parameters.py' to False.
 # See that setting for more details
 # Ex. custom_sequences = ['CTCTCTCCTACTCTCTCGTACTCTCTCTACTCTCTCTACTCTCTCTACTCTCTCTACTCTCTCTACTCTCTCTACTCTCTCCTACTCTCTCTACTCTCTCTACTCTCTCTACTCTCTCTACTCTCTCTACTCTCTCTACTCTCTCTACTCTCTCTACTCTCTCTACTCTCTCTA']
 custom_sequences = []

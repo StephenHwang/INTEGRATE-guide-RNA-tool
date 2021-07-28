@@ -4,7 +4,7 @@ import multiprocessing
 import os
 from pathlib import Path
 
-from src.advanced_parameters import mismatch_threshold, allow_gaps
+from advanced_parameters import mismatch_threshold, allow_gaps
 
 def build(genbank_id, fasta_file=None):
 	root_dir = Path(__file__).parent.parent
@@ -15,7 +15,7 @@ def build(genbank_id, fasta_file=None):
 	# if index exists no need to rebuild
 	if Path(f'{build_output_name}.1.bt2').exists():
 		return
-	
+
 	if not fasta_file:
 		fasta_build_file = os.path.join(root_dir, 'assets', 'genbank', f'{genbank_id}.fasta')
 	else:
